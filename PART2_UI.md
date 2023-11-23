@@ -27,6 +27,9 @@ import tempfile
 from utils import build_index, build_messages
 
 import openai
+
+# https://github.com/huggingface/transformers/issues/5486
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 ```
 
 Then a simple helper for sending a message to the user:

@@ -6,6 +6,9 @@ from utils import build_index, build_messages
 
 import openai
 
+# https://github.com/huggingface/transformers/issues/5486
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
 
 async def send_msg(message: str):
     await cl.Message(

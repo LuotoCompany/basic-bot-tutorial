@@ -2,7 +2,7 @@
 
 First, we'll be building a command line tool which takes a filename and a question as argument, indexes the file into ChromaDB, builds the prompts, sends them to an LLM and streams the result into the screen.
 
-The full example is in `cmd_example.py`, and the below box shows how to use it. The `luoto.pdf` used as an example is a collection of text from Luoto Company website and a few LinkedIn articles, fed through GPT-4, where it was translated into English and formatted.
+The full example is in `cmd_example.py`, and the below box shows how to use it. The `luoto.pdf` used as an example is a collection of text from Luoto Company website and a few articles, translated into English.
 
 ```
 export OPENAI_API_KEY=<your OpenAI API Key here>
