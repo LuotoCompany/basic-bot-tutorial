@@ -4,6 +4,8 @@ This guide shows one example of how to make a chatbot which can answer questions
 
 # Building blocks
 
+![img/bot_structure.jpg](img/bot_structure.jpg)
+
 ### LLM
 
 Large Language Model. For this guide, we'll use GPT-3.5 via [OpenAI APIs](https://platform.openai.com/docs/api-reference).
