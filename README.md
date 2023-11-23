@@ -2,6 +2,10 @@
 
 This guide shows one example of how to make a chatbot which can answer questions about PDF files.
 
+In [Part 1](PART1_CMDLINE.md), we will build a command-line bot application, and in [Part 2](PART2_UI.md) we add a UI to the bot.
+
+But first, here is an overview of the components needed to build such a bot.
+
 # Building blocks
 
 ![img/bot_structure.jpg](img/bot_structure.jpg)
