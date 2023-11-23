@@ -42,7 +42,7 @@ More about embeddings:
 
 ## Data processing
 
-Preparing data to be stored in a vector database is a large topic and its complexity depends on how complex the data is (e.g. a simple text file vs images containing text on a PDF).
+Preparing data to be stored in a vector database is a large topic and its complexity depends on things like how complex/varying the data is (e.g. a simple text file vs images containing text on a PDF) and the intended use case.
 
 The basic idea is to chop data into short pieces that are then converted into vectors. The data can be anything, such a website, txt file, csv, pdf, transcribed audio, output from an LLM, and so on.
 
