@@ -77,7 +77,7 @@ def build_messages(user_question: str, context: List[str]):
 
 ### Data processing functions
 
-Next up, a few helper functions for processing a PDF into smaller chunks to be inserted into the vector database. For the index/collection name, we has the filename:
+Next up, a few helper functions for processing a PDF into smaller chunks to be inserted into the vector database. For the index/collection name, we hash the filename:
 
 ```python
 # Each file gets its own ChromaDB index, using hash as the index name
