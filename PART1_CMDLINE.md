@@ -151,7 +151,7 @@ def build_index(filename: str, override_collection_name="") -> Collection:
     collection = None
     try:
         collection = chroma.get_collection(collection_name)
-        print('Found exiting collection')
+        print('Found existing collection')
     except InvalidCollectionException:
         print(f'Will create a new collection for {filename}')
 
