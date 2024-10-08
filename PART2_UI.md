@@ -6,7 +6,7 @@ There is a full example available in `ui_example.py`. It can be run with:
 
 ```
 export OPENAI_API_KEY=<your key>
-chainlit run ui_example.py
+python -m chainlit run ui_example.py
 ```
 
 In `http://localhost:8000`, you should see a following kind of UI:
