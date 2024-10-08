@@ -29,9 +29,10 @@ import openai
 import chromadb
 from chromadb import Collection
 from chromadb.config import Settings as ChromaDbSettings
+from chromadb.errors import InvalidCollectionException
 
 from langchain.docstore.document import Document
-from langchain.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyPDFLoader
 
 # https://github.com/huggingface/transformers/issues/5486
 # (^ to avoid a warning message, see above)
@@ -151,7 +152,7 @@ def build_index(filename: str, override_collection_name="") -> Collection:
     try:
         collection = chroma.get_collection(collection_name)
         print('Found exiting collection')
-    except ValueError:
+    except InvalidCollectionException:
         print(f'Will create a new collection for {filename}')
 
     if not collection:
@@ -185,9 +186,9 @@ async def main(filename: str, user_question: str):
 
     # Make a request to OpenAI chat completions API
     stream = openai.chat.completions.create(
-        model="gpt-3.5-turbo-1106",
+        model="gpt-4o",
         messages=build_messages(user_question, context),
-        temperature=0.25,
+        temperature=0.75,
         top_p=0.2,
         max_tokens=512,
         stream=True

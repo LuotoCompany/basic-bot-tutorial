@@ -23,21 +23,27 @@ async def start():
     while files is None:
         files = await cl.AskFileMessage(
             content="Please upload a PDF file to start the discussion",
-            accept=['application/pdf'],
-            max_size_mb=50
+            accept=["application/pdf"],
+            max_size_mb=50,
         ).send()
 
     new_file, tmp_filename = tempfile.mkstemp()
-    os.write(new_file, files[0].content)
-    os.close(new_file)
+    try:
+        with open(files[0].path, "rb") as f:
+            binary_content = f.read()
+        os.write(new_file, binary_content)
+        os.close(new_file)
+    except Exception as e:
+        await send_msg(f"Error processing file: {str(e)}")
+        return
 
-    await send_msg('Indexing your file, please wait...')
+    await send_msg("Indexing your file, please wait...")
     collection = build_index(tmp_filename, files[0].name)
 
     # Store the collection so it can be retrieved in the message callback
     cl.user_session.set("collection", collection)
 
-    await send_msg('Ready! What do you want to know?')
+    await send_msg("Ready! What do you want to know?")
 
 
 @cl.on_message
@@ -46,19 +52,16 @@ async def on_message(message: cl.Message):
     collection = cl.user_session.get("collection")
 
     # Seach entries from the vector database
-    search_result = collection.query(
-        query_texts=[user_question],
-        n_results=10
-    )
-    context = [''.join(doclist) for doclist in search_result['documents']]
+    search_result = collection.query(query_texts=[user_question], n_results=10)
+    context = ["".join(doclist) for doclist in search_result["documents"]]
 
     stream = openai.chat.completions.create(
-        model="gpt-3.5-turbo-1106",
+        model="gpt-4o",
         messages=build_messages(user_question, context),
-        temperature=0.25,
+        temperature=0.75,
         top_p=0.2,
         max_tokens=512,
-        stream=True
+        stream=True,
     )
 
     response = cl.Message(content="")
@@ -67,8 +70,7 @@ async def on_message(message: cl.Message):
     for txt in stream:
         content = txt.choices[0].delta.content or ""
 
-        if (content):
+        if content:
             await response.stream_token(content)
 
     await response.send()
-

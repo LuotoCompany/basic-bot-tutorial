@@ -57,11 +57,17 @@ async def start():
             max_size_mb=50
         ).send()
 
-    new_file, tmp_filename = tempfile.mkstemp()
-    os.write(new_file, files[0].content)
-    os.close(new_file)
-
     await send_msg('Indexing your file, please wait...')
+    new_file, tmp_filename = tempfile.mkstemp()
+    try:
+        with open(files[0].path, "rb") as f:
+            binary_content = f.read()
+        os.write(new_file, binary_content)
+        os.close(new_file)
+    except Exception as e:
+        await send_msg(f"Error processing file: {str(e)}")
+        return
+
     collection = build_index(tmp_filename, files[0].name)
 
     # Store the collection so it can be retrieved in the message callback
@@ -93,9 +99,9 @@ async def on_message(message: cl.Message):
     context = [''.join(doclist) for doclist in search_result['documents']]
 
     stream = openai.chat.completions.create(
-        model="gpt-3.5-turbo-1106",
+        model="gpt-4o",
         messages=build_messages(user_question, context),
-        temperature=0.25,
+        temperature=0.75,
         top_p=0.2,
         max_tokens=512,
         stream=True
