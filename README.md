@@ -12,7 +12,7 @@ But first, here is an overview of the components needed to build such a bot.
 
 ### LLM
 
-Large Language Model. For this guide, we'll use GPT-3.5 via [OpenAI APIs](https://platform.openai.com/docs/api-reference).
+Large Language Model. For this guide, we'll use GPT-4o via [OpenAI APIs](https://platform.openai.com/docs/api-reference).
 
 In addition to GPTs, there are many other models, such as [PaLM](https://developers.generativeai.google/), [Claude](https://www.anthropic.com/product), [Llama](https://ai.meta.com/llama/), [Falcon](https://falconllm.tii.ae/), [Cohere](https://cohere.com/) and [Mistral](https://mistral.ai/news/announcing-mistral-7b/).
 
